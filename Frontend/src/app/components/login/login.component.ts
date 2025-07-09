@@ -8,4 +8,16 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
 
+  login:boolean=true;
+
+  changeForm(){
+    if (this.login){
+      this.login=false
+    }
+    else{
+this.login=true
+    }
+    
+    console.log(this.login)
+  }
 }

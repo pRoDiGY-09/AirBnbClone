@@ -17,7 +17,7 @@ const Listings =new mongoose.Schema({
     },
     images:[String],
     maxGuests:Number,
-    availableDates:[Date]
+    
 })
 
 module.exports=mongoose.model('Listings',Listings)

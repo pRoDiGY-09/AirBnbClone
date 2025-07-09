@@ -6,11 +6,14 @@ const passport = require('passport');
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const { storage } = require('../cloudinary/cloudinary');
+const multer = require('multer');
+const upload = multer({ storage });
 
-
-router.post('/register', async (req, res) => {
+router.post('/register',upload.single('image'), async (req, res) => {
     try {
         const checkEmail = await User.findOne({ email: req.body.email })
+        const imageUrls = req.file ? req.file.path : null;
         if (!checkEmail) {
             const HashedPassword = bcrypt.hashSync(req.body.password, 10);
             const newuser = new User({
@@ -18,7 +21,7 @@ router.post('/register', async (req, res) => {
                 email: req.body.email,
                 password: HashedPassword,
                 role: req.body.role,
-                profileImage: req.body.profileImage
+                profileImage: imageUrls
             })
             await newuser.save()
             res.status(200).json({ message: "User registered successfully" }, newuser)

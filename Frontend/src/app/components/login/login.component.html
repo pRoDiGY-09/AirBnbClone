@@ -5,21 +5,31 @@
                 alt="Airbnb Logo">
         </div>
         <div class="right">
-            <h2>Log In</h2>
+            <h2 *ngIf="this.login">Log In</h2>
+            <h2 *ngIf="!this.login">Register</h2>
+            <div *ngIf="!this.login" class="input-wrapper">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" placeholder="Enter your name">
+            </div>
             <div class="input-wrapper">
                 <i class="fa-solid fa-envelope"></i>
                 <input type="email" placeholder="Enter your Email">
             </div>
-
             <div class="input-wrapper">
                 <i class="fa-solid fa-lock"></i>
                 <input type="password" placeholder="Enter your Password">
             </div>
+            <div *ngIf="!this.login" class="input-wrapper">
+                <i class="fa-solid fa-image"></i>
+                <input type="file" placeholder="Upload Image">
+            </div>
 
-            <button>LOGIN</button>
+            <button *ngIf="this.login">LOGIN</button>
+            <button *ngIf="!this.login">REGISTER</button>
             <br>
             <br>
-            <p><a href="#"> Create Your Account -></a></p>
+            <p *ngIf="this.login"><a (click)="changeForm()"> Create Your Account -></a></p>
+            <p *ngIf="!this.login"><a (click)="changeForm()"> Sign In -></a></p>
         </div>
     </div>
 </body>
